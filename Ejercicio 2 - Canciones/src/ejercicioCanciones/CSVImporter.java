@@ -23,16 +23,18 @@ public class CSVImporter {
 
             CsvReader cancionesImport = new CsvReader(filePath);
             cancionesImport.readHeaders();
+            cancionesImport.setDelimiter(';');
 
             while (cancionesImport.readRecord()){
-                String nombreCancion = cancionesImport.get("NombreCancion");
-                String artista = cancionesImport.get("Artista");
-                String genero = cancionesImport.get("Genero");
-                canciones.add(new Cancion(nombreCancion, artista, genero));    
+                String nombreCancion = cancionesImport.get(0);
+                String artista = cancionesImport.get(1);
+                String genero = cancionesImport.get(2);
+                canciones.add(new Cancion(nombreCancion, artista, genero));
+                //System.out.println("NC: "+nombreCancion+" A: "+artista+" G: "+genero);
             }
 
             cancionesImport.close();
-
+ 
             return canciones;
 
         }catch (Exception e){
